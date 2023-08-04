@@ -1,0 +1,15 @@
+use sql_hr;
+show tables;
+desc employees;
+select * from employees;
+select round(avg(salary),0) from employees;
+select * from employees order by salary desc limit 5;
+select count(distinct job_title) from employees;
+select count(employee_id) from employees;
+select count(distinct first_name) from employees;
+select count(distinct office_id) from employees;
+select first_name as name1 from employees where office_id = 2;
+select * from offices;
+select * from employees order by salary limit 1;
+select * from employees order by office_id;
+select office_id,count(employee_id) from employees group by office_id;
