@@ -1,0 +1,35 @@
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| department_store   |
+| information_schema |
+| moodle             |
+| mysql              |
+| performance_schema |
+| products           |
+| sakila             |
+| sathesh            |
+| sql_hr             |
+| sql_inventory      |
+| sql_invoicing      |
+| sql_store          |
+| student            |
+| sys                |
+| world              |
++--------------------+
+15 rows in set (0.01 sec)
+
+mysql> use world;
+Database changed
+mysql> show tables;
++-----------------+
+| Tables_in_world |
++-----------------+
+| city            |
+| country         |
+| countrylanguage |
++-----------------+
+3 rows in set (0.01 sec)
+
+mysql> exit;

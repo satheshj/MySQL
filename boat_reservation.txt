@@ -1,0 +1,113 @@
+mysql> use sathesh;
+Database changed
+mysql> show tables;
++-------------------+
+| Tables_in_sathesh |
++-------------------+
+| boat              |
+| customer          |
+| dept              |
+| emp               |
+| guest             |
+| marks             |
+| order_details     |
+| pamily            |
+| player            |
+| product           |
+| sailor            |
+| student           |
+| student_profile   |
++-------------------+
+13 rows in set (0.02 sec)
+
+mysql> create table reservation(
+    -> boat_id int,
+    -> guest_id,
+    -> sailor_id^C
+mysql> create table reservation(
+    -> boat_id int,
+    -> guest_id int,
+    -> sailor_id int,
+    -> ^C
+mysql> desc guest;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| guestno | int         | NO   | PRI | NULL    |       |
+| mob_no  | bigint      | NO   |     | NULL    |       |
+| city    | varchar(25) | NO   |     | NULL    |       |
+| name    | varchar(25) | NO   |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> desc boat;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| bname | varchar(30) | NO   | UNI | NULL    |       |
+| bno   | int         | NO   | PRI | NULL    |       |
+| types | varchar(20) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> desc sailor;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| sno    | int         | NO   | PRI | NULL    |       |
+| sname  | varchar(20) | NO   |     | NULL    |       |
+| rating | int         | YES  |     | NULL    |       |
+| age    | int         | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> create table reservation(
+    -> boat_id int,
+    -> guest_id int,
+    -> sailor_id int,
+    -> reservation_slot varchar(25) not null);
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> insert into guest values(1,124672923,'coimbatore','reghupal'),
+    -> (2,924672923,'cole','surul'),
+    -> (3,924672903,'colom','surul'),
+    -> (4,9214672903,'cojo','arul'),
+    -> (5,921467203,'colombo','kamal');
+Query OK, 5 rows affected (0.02 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from guest;
++---------+------------+------------+----------+
+| guestno | mob_no     | city       | name     |
++---------+------------+------------+----------+
+|       1 |  124672923 | coimbatore | reghupal |
+|       2 |  924672923 | cole       | surul    |
+|       3 |  924672903 | colom      | surul    |
+|       4 | 9214672903 | cojo       | arul     |
+|       5 |  921467203 | colombo    | kamal    |
++---------+------------+------------+----------+
+5 rows in set (0.00 sec)
+
+mysql> alter table reservation add foreign key(boat_id) references boat(bno) , add foreign key(guest_id) references guest(guestno);
+Query OK, 0 rows affected (0.07 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table reservation add foreign key(sailor_id) references sailor(sno);
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> insert into boat values('Quiyle',101,'rowing');
+ERROR 3819 (HY000): Check constraint 'boat_chk_1' is violated.
+mysql> insert into boat values('Quiyle',101,'row');
+ERROR 3819 (HY000): Check constraint 'boat_chk_1' is violated.
+mysql> select constraint_name,contraint_type,table_name,table_schema from information_schema.table_constraints where table_schema = 'sathesh' and table_name='boat';
+ERROR 1054 (42S22): Unknown column 'contraint_type' in 'field list'
+mysql> select constraint_name,constraint_type,table_name,table_schema from information_schema.table_constraints where table_schema = 'sathesh' and table_name='boat';
++-----------------+-----------------+------------+--------------+
+| CONSTRAINT_NAME | CONSTRAINT_TYPE | TABLE_NAME | TABLE_SCHEMA |
++-----------------+-----------------+------------+--------------+
+| bname           | UNIQUE          | boat       | sathesh      |
+| PRIMARY         | PRIMARY KEY     | boat       | sathesh      |
+| boat_chk_1      | CHECK           | boat       | sathesh      |
++-----------------+-----------------+------------+--------------+
+3 rows in set (0.00 sec)

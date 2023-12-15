@@ -1,0 +1,257 @@
+mysql> select upper('sathesh');
++------------------+
+| upper('sathesh') |
++------------------+
+| SATHESH          |
++------------------+
+1 row in set (0.01 sec)
+
+mysql> select ename from emp
+    -> where ename like "____e";
++-------+
+| ename |
++-------+
+| BLAKE |
++-------+
+1 row in set (0.04 sec)
+
+mysql> select ename from emp
+    -> where ename like "____e%";
++--------+
+| ename  |
++--------+
+| BLAKE  |
+| TURNER |
+| MILLER |
++--------+
+3 rows in set (0.00 sec)
+
+mysql> select concat(ename," earns ",sal," monthly but wants 3 times ",sal) from emp;
++---------------------------------------------------------------+
+| concat(ename," earns ",sal," monthly but wants 3 times ",sal) |
++---------------------------------------------------------------+
+| SMITH earns 800.00 monthly but wants 3 times 800.00           |
+| ALLEN earns 1600.00 monthly but wants 3 times 1600.00         |
+| WARD earns 1250.00 monthly but wants 3 times 1250.00          |
+| JONES earns 2975.00 monthly but wants 3 times 2975.00         |
+| MARTIN earns 1250.00 monthly but wants 3 times 1250.00        |
+| BLAKE earns 2850.00 monthly but wants 3 times 2850.00         |
+| CLARK earns 2450.00 monthly but wants 3 times 2450.00         |
+| SCOTT earns 3000.00 monthly but wants 3 times 3000.00         |
+| KING earns 5000.00 monthly but wants 3 times 5000.00          |
+| TURNER earns 1500.00 monthly but wants 3 times 1500.00        |
+| ADAMS earns 1100.00 monthly but wants 3 times 1100.00         |
+| JAMES earns 950.00 monthly but wants 3 times 950.00           |
+| FORD earns 3000.00 monthly but wants 3 times 3000.00          |
+| MILLER earns 1300.00 monthly but wants 3 times 1300.00        |
++---------------------------------------------------------------+
+14 rows in set (0.01 sec)
+
+mysql> select concat(ename," earns ",sal," monthly but wants 3 times ",sal) as statement from emp;
++--------------------------------------------------------+
+| statement                                              |
++--------------------------------------------------------+
+| SMITH earns 800.00 monthly but wants 3 times 800.00    |
+| ALLEN earns 1600.00 monthly but wants 3 times 1600.00  |
+| WARD earns 1250.00 monthly but wants 3 times 1250.00   |
+| JONES earns 2975.00 monthly but wants 3 times 2975.00  |
+| MARTIN earns 1250.00 monthly but wants 3 times 1250.00 |
+| BLAKE earns 2850.00 monthly but wants 3 times 2850.00  |
+| CLARK earns 2450.00 monthly but wants 3 times 2450.00  |
+| SCOTT earns 3000.00 monthly but wants 3 times 3000.00  |
+| KING earns 5000.00 monthly but wants 3 times 5000.00   |
+| TURNER earns 1500.00 monthly but wants 3 times 1500.00 |
+| ADAMS earns 1100.00 monthly but wants 3 times 1100.00  |
+| JAMES earns 950.00 monthly but wants 3 times 950.00    |
+| FORD earns 3000.00 monthly but wants 3 times 3000.00   |
+| MILLER earns 1300.00 monthly but wants 3 times 1300.00 |
++--------------------------------------------------------+
+14 rows in set (0.00 sec)
+
+mysql> select concat(substr(ename,1,3),substr(job,-3,3),"@mydb.com") from emp;
++--------------------------------------------------------+
+| concat(substr(ename,1,3),substr(job,-3,3),"@mydb.com") |
++--------------------------------------------------------+
+| SMIERK@mydb.com                                        |
+| ALLMAN@mydb.com                                        |
+| WARMAN@mydb.com                                        |
+| JONGER@mydb.com                                        |
+| MARMAN@mydb.com                                        |
+| BLAGER@mydb.com                                        |
+| CLAGER@mydb.com                                        |
+| SCOYST@mydb.com                                        |
+| KINENT@mydb.com                                        |
+| TURMAN@mydb.com                                        |
+| ADAERK@mydb.com                                        |
+| JAMERK@mydb.com                                        |
+| FORYST@mydb.com                                        |
+| MILERK@mydb.com                                        |
++--------------------------------------------------------+
+14 rows in set (0.00 sec)
+
+mysql> notee;
+mysql> select * from emp;
++-------+--------+-----------+------+------------+---------+---------+--------+
+| empno | ename  | job       | mgr  | hiredate   | sal     | comm    | deptno |
++-------+--------+-----------+------+------------+---------+---------+--------+
+|  7369 | SMITH  | CLERK     | 7902 | 1980-12-17 |  800.00 |    NULL |     20 |
+|  7499 | ALLEN  | SALESMAN  | 7698 | 1981-02-20 | 1600.00 |  300.00 |     30 |
+|  7521 | WARD   | SALESMAN  | 7698 | 1981-02-22 | 1250.00 |  500.00 |     30 |
+|  7566 | JONES  | MANAGER   | 7839 | 1981-04-02 | 2975.00 |    NULL |     20 |
+|  7654 | MARTIN | SALESMAN  | 7698 | 1981-09-28 | 1250.00 | 1400.00 |     30 |
+|  7698 | BLAKE  | MANAGER   | 7839 | 1981-05-01 | 2850.00 |    NULL |     30 |
+|  7782 | CLARK  | MANAGER   | 7839 | 1981-06-09 | 2450.00 |    NULL |     10 |
+|  7788 | SCOTT  | ANALYST   | 7566 | 1982-12-09 | 3000.00 |    NULL |     20 |
+|  7839 | KING   | PRESIDENT | NULL | 1981-11-17 | 5000.00 |    NULL |     10 |
+|  7844 | TURNER | SALESMAN  | 7698 | 1981-09-08 | 1500.00 |    0.00 |     30 |
+|  7876 | ADAMS  | CLERK     | 7788 | 1983-01-12 | 1100.00 |    NULL |     20 |
+|  7900 | JAMES  | CLERK     | 7698 | 1981-12-03 |  950.00 |    NULL |     30 |
+|  7902 | FORD   | ANALYST   | 7566 | 1981-12-03 | 3000.00 |    NULL |     20 |
+|  7934 | MILLER | CLERK     | 7782 | 1982-01-23 | 1300.00 |    NULL |     10 |
++-------+--------+-----------+------+------------+---------+---------+--------+
+14 rows in set (0.00 sec)
+
+mysql> select (date_sub(curdate(),hiredate) as experience from emp;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'hiredate) as experience from emp' at line 1
+mysql> select (date_sub(curdate(),hiredate)) as experience from emp;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'hiredate)) as experience from emp' at line 1
+mysql> select curdate() from dual;
++------------+
+| curdate()  |
++------------+
+| 2023-11-23 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select (date_diff(curdate(),hiredate)) as experience from emp;
+ERROR 1305 (42000): FUNCTION sathesh.date_diff does not exist
+mysql> select (datediff(curdate(),hiredate)) as experience from emp;
++------------+
+| experience |
++------------+
+|      15681 |
+|      15616 |
+|      15614 |
+|      15575 |
+|      15396 |
+|      15546 |
+|      15507 |
+|      14959 |
+|      15346 |
+|      15416 |
+|      14925 |
+|      15330 |
+|      15330 |
+|      15279 |
++------------+
+14 rows in set (0.00 sec)
+
+mysql> select (date_sub(curdate(),hiredate)) as experience from emp;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'hiredate)) as experience from emp' at line 1
+mysql> select (date_diff(curdate(),hiredate)) as experience from emp;
+ERROR 1305 (42000): FUNCTION sathesh.date_diff does not exist
+mysql> select (datediff(curdate(),hiredate)) as experience from emp;
++------------+
+| experience |
++------------+
+|      15681 |
+|      15616 |
+|      15614 |
+|      15575 |
+|      15396 |
+|      15546 |
+|      15507 |
+|      14959 |
+|      15346 |
+|      15416 |
+|      14925 |
+|      15330 |
+|      15330 |
+|      15279 |
++------------+
+14 rows in set (0.00 sec)
+
+mysql> select (datediff(curdate(),hiredate)/365) as experience from emp;
++------------+
+| experience |
++------------+
+|    42.9616 |
+|    42.7836 |
+|    42.7781 |
+|    42.6712 |
+|    42.1808 |
+|    42.5918 |
+|    42.4849 |
+|    40.9836 |
+|    42.0438 |
+|    42.2356 |
+|    40.8904 |
+|    42.0000 |
+|    42.0000 |
+|    41.8603 |
++------------+
+14 rows in set (0.00 sec)
+
+mysql> select truncate(datediff(curdate(),hiredate)/365,0) as experience from emp;
++------------+
+| experience |
++------------+
+|         42 |
+|         42 |
+|         42 |
+|         42 |
+|         42 |
+|         42 |
+|         42 |
+|         40 |
+|         42 |
+|         42 |
+|         40 |
+|         42 |
+|         42 |
+|         41 |
++------------+
+14 rows in set (0.00 sec)
+
+mysql> select concat(truncate(datediff(curdate(),hiredate)/12*365,0)," months ",truncate(datediff(curdate(),hiredate)/365,0)," years") as experience from emp;
++------------------------+
+| experience             |
++------------------------+
+| 476963 months 42 years |
+| 474986 months 42 years |
+| 474925 months 42 years |
+| 473739 months 42 years |
+| 468295 months 42 years |
+| 472857 months 42 years |
+| 471671 months 42 years |
+| 455002 months 40 years |
+| 466774 months 42 years |
+| 468903 months 42 years |
+| 453968 months 40 years |
+| 466287 months 42 years |
+| 466287 months 42 years |
+| 464736 months 41 years |
++------------------------+
+14 rows in set (0.00 sec)
+
+mysql> select concat(truncate(datediff(curdate(),hiredate)/365/12,0)," months ",truncate(datediff(curdate(),hiredate)/365,0)," years") as experience from emp;
++-------------------+
+| experience        |
++-------------------+
+| 3 months 42 years |
+| 3 months 42 years |
+| 3 months 42 years |
+| 3 months 42 years |
+| 3 months 42 years |
+| 3 months 42 years |
+| 3 months 42 years |
+| 3 months 40 years |
+| 3 months 42 years |
+| 3 months 42 years |
+| 3 months 40 years |
+| 3 months 42 years |
+| 3 months 42 years |
+| 3 months 41 years |
++-------------------+
+14 rows in set (0.00 sec)
+

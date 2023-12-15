@@ -1,0 +1,46 @@
+ use moodle;
+Database changed
+mysql> create table air_passenger_profile(
+    -> profile_id varchar(10) primary key,
+    -> password varchar(10) not null,
+    -> first_name varchar(10),
+    -> last_name varchar(10),
+    -> address varchar(100),
+    -> mobile_number bigint(10),
+    -> email_id varchar(30) check (email_id like "%@%"));
+Query OK, 0 rows affected, 1 warning (0.06 sec)
+
+mysql> create table air_credit_card_details(
+    -> profile_id varchar(10) references air_passenger_profile(profile_id),
+    -> card_number bigint(16),
+    -> card_type varchar(10),
+    -> expiration_month int(2),
+    -> expiration_year int(4));
+Query OK, 0 rows affected, 3 warnings (0.02 sec)
+
+mysql> create table air_flight(
+    -> flight_id varchar(10) primary key,
+    -> airline_id varchar(10),
+    -> airline_name varchar(30),
+    -> from_location varchar(20),
+    -> to_location varchar(20),
+    -> departure_time time,
+    -> arrival_time time,
+    -> duration time,
+    -> total_seats int(11));
+Query OK, 0 rows affected, 1 warning (0.02 sec)
+
+mysql> create table air_flight_details(
+    -> flight_id varchar(10) references air_flight(flight_id),
+    -> flight_departure_date date,
+    -> price decimal(8,2),
+    -> available_seats int(11));
+Query OK, 0 rows affected, 1 warning (0.01 sec)
+
+mysql> create table air_ticket_info(
+    -> ticket_id varchar(10) primary key,
+    -> profile_id varchar(10) references air_passenger_profile(profile_id),
+    -> flight_id varchar(10) references air_flight(flight_id),
+    -> flight_departure_date date references air_flight_details(flight_departure_date),
+    -> status varchar(10));
+Query OK, 0 rows affected (0.01 sec)

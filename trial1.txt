@@ -1,0 +1,146 @@
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sathesh            |
+| sql_hr             |
+| sql_inventory      |
+| sql_invoicing      |
+| sql_store          |
+| student            |
+| sys                |
+| world              |
++--------------------+
+12 rows in set (0.05 sec)
+
+mysql> use sathesh;
+Database changed
+mysql> show tables;
++-------------------+
+| Tables_in_sathesh |
++-------------------+
+| customer          |
+| dept              |
+| emp               |
+| order_details     |
+| pamily            |
+| player            |
+| product           |
+| student           |
++-------------------+
+8 rows in set (0.04 sec)
+
+mysql> create table student_profile(
+    -> rollno int,
+    -> name varchar(25),
+    -> mark1 int,
+    -> mark2 int);
+Query OK, 0 rows affected (0.13 sec)
+
+mysql> create table marks(
+    -> rollno int,
+    -> name varchar(20),
+    -> mark1 int,
+    -> mark2 int);
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> set auto_commit = 0;
+ERROR 1193 (HY000): Unknown system variable 'auto_commit'
+mysql> set autocommit = 0;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> insert into student_profile values
+    -> ^C
+mysql> alter table student_profile drop column mark1, drop column mark2;
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student_profile;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| rollno | int         | YES  |     | NULL    |       |
+| name   | varchar(25) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+2 rows in set (0.02 sec)
+
+mysql> alter table student_profile add column dob date,
+    -> add column department varchar(10),
+    -> add column city varchar(20);
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student_profile;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| rollno     | int         | YES  |     | NULL    |       |
+| name       | varchar(25) | YES  |     | NULL    |       |
+| dob        | date        | YES  |     | NULL    |       |
+| department | varchar(10) | YES  |     | NULL    |       |
+| city       | varchar(20) | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> desc marks;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| rollno | int         | YES  |     | NULL    |       |
+| name   | varchar(20) | YES  |     | NULL    |       |
+| mark1  | int         | YES  |     | NULL    |       |
+| mark2  | int         | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> insert into student_profile values
+    -> (2,'naveen','2002-04-1','cse','mettupalyam')
+    -> (7,'nithish','2002-02-7','cse','ganapathy')
+    -> (12,'pragadeesh','2001-03-21','cse','prozone')
+    -> (13,'prakash','2002-03-21','cse','pnp')
+    -> (28,'santhosh','2002-03-21','cse','vedapatti');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(7,'nithish','2002-02-7','cse','ganapathy')
+(12,'pragadeesh','2001-03-21','cse',' at line 3
+mysql> insert into student_profile values
+    -> (2,'naveen','2002-04-1','cse','mettupalyam'),
+    -> (7,'nithish','2002-02-7','cse','ganapathy'),
+    -> (13,'prakash','2002-03-21','cse','pnp'),
+    -> (28,'santhosh','2002-03-21','cse','vedapatti'),
+    -> (37,'shathika','2002-01-16','cse','pnp');
+Query OK, 5 rows affected (0.04 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from student_profiles;
+ERROR 1146 (42S02): Table 'sathesh.student_profiles' doesn't exist
+mysql> select * from student_profile;
++--------+----------+------------+------------+-------------+
+| rollno | name     | dob        | department | city        |
++--------+----------+------------+------------+-------------+
+|      2 | naveen   | 2002-04-01 | cse        | mettupalyam |
+|      7 | nithish  | 2002-02-07 | cse        | ganapathy   |
+|     13 | prakash  | 2002-03-21 | cse        | pnp         |
+|     28 | santhosh | 2002-03-21 | cse        | vedapatti   |
+|     37 | shathika | 2002-01-16 | cse        | pnp         |
++--------+----------+------------+------------+-------------+
+5 rows in set (0.03 sec)
+
+mysql> insert into marks values
+    -> (2,naveen,80,78),
+    -> ^C
+mysql> insert into marks values
+    -> (2,'naveen',80,78),
+    -> (7,'nithish',67,78),
+    -> (13,'prakash',77,88),
+    -> (28,'santhosh',97,88),
+    -> (37,'shathika',90,95);
+Query OK, 5 rows affected (0.03 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> commit;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> notee

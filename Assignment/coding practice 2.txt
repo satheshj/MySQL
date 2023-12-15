@@ -1,0 +1,10 @@
+1. select * from products where category = 'Clothing' and price<700;
+2. select * from products where brand = 'Denim' and rating>4.0;
+3. select * from products where price between 0 and 1001;
+4. select * from products where (rating>3.6) and (price>1000) and (brand = 'Puma');
+5. select * from products where brand in('Puma','Denim','Nike');
+6. select * from products where (brand='Redmi' and rating>4) and (brand='OnePlus');
+7. select cakes from products where (brand = 'Cadbury' or brand = 'Britannia') and (rating>4);
+8. select * from products where (brand = 'Puma' and rating > 3.5) or (brand='Denim' and rating > 4.0);
+9. select * from products where name like '%Shirt%' and name not like '%Black%';
+

@@ -1,0 +1,38 @@
+mysql> use sathesh;
+Database changed
+mysql> show tables;
++-------------------+
+| Tables_in_sathesh |
++-------------------+
+| dept              |
+| emp               |
+| pamily            |
++-------------------+
+3 rows in set (0.06 sec)
+
+mysql> select ename from emp like '____';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'like '____'' at line 1
+mysql> select ename from emp like 'j%s';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'like 'j%s'' at line 1
+mysql> select ename from emp ename like 'j%s';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'like 'j%s'' at line 1
+mysql> select ename from emp where ename like 'j%s';
++-------+
+| ename |
++-------+
+| JONES |
+| JAMES |
++-------+
+2 rows in set (0.00 sec)
+
+mysql> select ename from emp where ename like '____';
++-------+
+| ename |
++-------+
+| WARD  |
+| KING  |
+| FORD  |
++-------+
+3 rows in set (0.00 sec)
+
+mysql> exit;

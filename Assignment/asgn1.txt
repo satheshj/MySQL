@@ -1,0 +1,104 @@
+mysql> create table distribution_companies(
+    -> Cid int primary key,
+    -> company_name varchar(40) unique not null,
+    -> head_office_loc varchar(40) not null);
+Query OK, 0 rows affected (0.13 sec)
+
+mysql> create table movies(
+    -> Mid int primary key,
+    -> movie_title varchar(50) not null,
+    -> IMBD_rating DECIMAL(2,1) CHECK (IMBD_rating BETWEEN 1 AND 10),
+    -> year_relased int);
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> create table Movie_distribution(
+    -> Did int primary key,
+    -> Movie_id int references movies(Mid),
+    -> Company_id int references distribution_companies(Cid));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> show tables;
++------------------------+
+| Tables_in_moodle       |
++------------------------+
+| distribution_companies |
+| movie_distribution     |
+| movies                 |
++------------------------+
+3 rows in set (0.02 sec)
+
+mysql> alter table distribution_companies add column mob_no bigint;
+Query OK, 0 rows affected (0.07 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table movies add check (year_relased < 2023);
+Query OK, 0 rows affected (0.09 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc distribution_companies;
++-----------------+-------------+------+-----+---------+-------+
+| Field           | Type        | Null | Key | Default | Extra |
++-----------------+-------------+------+-----+---------+-------+
+| Cid             | int         | NO   | PRI | NULL    |       |
+| company_name    | varchar(40) | NO   | UNI | NULL    |       |
+| head_office_loc | varchar(40) | NO   |     | NULL    |       |
+| mob_no          | bigint      | YES  |     | NULL    |       |
++-----------------+-------------+------+-----+---------+-------+
+4 rows in set (0.04 sec)
+
+mysql> insert into distribution_companies values
+    -> (1,"Sun Pictures","chennai",876543234),
+    -> (2,"AGS","chennai",743543234),
+    -> (3,"GrassRoot","Coimbatore",912543234),
+    -> (4,"Red Giant","Chennai",967543234),
+    -> (5,"","Chennai",967543234);
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> desc movie_distribution;
++------------+------+------+-----+---------+-------+
+| Field      | Type | Null | Key | Default | Extra |
++------------+------+------+-----+---------+-------+
+| Did        | int  | NO   | PRI | NULL    |       |
+| Movie_id   | int  | YES  |     | NULL    |       |
+| Company_id | int  | YES  |     | NULL    |       |
++------------+------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> desc movies;
++--------------+--------------+------+-----+---------+-------+
+| Field        | Type         | Null | Key | Default | Extra |
++--------------+--------------+------+-----+---------+-------+
+| Mid          | int          | NO   | PRI | NULL    |       |
+| movie_title  | varchar(50)  | NO   |     | NULL    |       |
+| IMBD_rating  | decimal(2,1) | YES  |     | NULL    |       |
+| year_relased | int          | YES  |     | NULL    |       |
++--------------+--------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> insert into movies values
+    -> (21,"Chekka Chivantha Vaanam",7.0,2016),
+    -> (22,"Shivaji",7.5,2012),
+    -> (23,"Deja Vu",8.0,2022),
+    -> (24,"Master",7.3,2021),
+    -> (25,"Kaithi",8.5,2019);
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> insert into movie_distribution values
+    -> (51,21,1),
+    -> (52,22,3),
+    -> (52,24,2),
+    -> (53,23,4),
+    -> (55,25,2);
+ERROR 1062 (23000): Duplicate entry '52' for key 'movie_distribution.PRIMARY'
+mysql> insert into movie_distribution values
+    -> (51,21,1),
+    -> (52,22,3),
+    -> (53,24,2),
+    -> (54,23,4),
+    -> (55,25,2);
+Query OK, 5 rows affected (0.00 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> exit;

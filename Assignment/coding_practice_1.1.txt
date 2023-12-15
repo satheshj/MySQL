@@ -1,0 +1,82 @@
+ use sathesh
+Database changed
+mysql> create table student(
+    -> name varchar(200),
+    -> age int,
+    -> score int);
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> create table customer(
+    -> customer_id int,
+    -> first_name varchar(200),
+    -> last_name varchar(200),
+    -> date_of_birth date,
+    ->
+    -> address text,
+    -> phone_number int);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> create table order_details(
+    -> order_id int,
+    -> customer_id int,
+    -> order_datetime datetime,
+    -> shipped_datetime datetime,
+    -> total_amount float);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> create table player(
+    -> details varchar(40),
+    -> value varchar
+    -> (40));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> insert into player values ('name','Ram'),
+    -> ('age','28'),
+    -> ('score' , '30');
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from player;
++---------+-------+
+| details | value |
++---------+-------+
+| name    | Ram   |
+| age     | 28    |
+| score   | 30    |
++---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> drop table player;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> create table player(
+    -> name varchar(50),
+    -> age int,
+    -> score int);
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> insert into player values ("Suresh",21,70),
+    -> ("Venkat",21,43),
+    -> ("---",---,---));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ',---))' at line 3
+mysql> insert into player values ("Suresh",21,70),
+    -> ("Venkat",21,43),
+    -> (-,-,-))'
+    '> ;
+    '> ^C
+mysql> insert into player values ("Suresh",21,70),
+    -> ("Venkat",21,43),
+    -> (-,-,-);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ',-,-)' at line 3
+mysql> insert into player values ("Suresh",21,70),
+    -> ("Venkat",21,43);
+Query OK, 2 rows affected (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from player where name = 'Suresh';
++--------+------+-------+
+| name   | age  | score |
++--------+------+-------+
+| Suresh |   21 |    70 |
++--------+------+-------+
+1 row in set (0.00 sec)

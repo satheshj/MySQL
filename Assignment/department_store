@@ -1,0 +1,340 @@
+ use department_store;
+Database changed
+mysql> show full tables;
++----------------------------+------------+
+| Tables_in_department_store | Table_type |
++----------------------------+------------+
+| customers                  | BASE TABLE |
++----------------------------+------------+
+1 row in set (0.01 sec)
+
+mysql> desc customers;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| c_id   | int         | NO   | PRI | NULL    |       |
+| c_name | varchar(25) | NO   |     | NULL    |       |
+| cities | varchar(25) | YES  |     | NULL    |       |
+| c_phno | bigint      | YES  | UNI | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> create table salesman(
+    -> sl_id int primary key,
+    -> sname varchar(25) not null,
+    -> salary int);
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> create table product(
+    -> pt_id int primary key,
+    -> pt_name varchar(30) not null,
+    -> pt_price float(5,2) not null);
+Query OK, 0 rows affected, 1 warning (0.02 sec)
+create table order_det(
+    -> order_id int primary key,
+    -> sl_id int,
+    -> cust_id int,
+    -> date_of_purchase date,
+    -> prod_id int,
+    -> foreign key (sl_id) references salesman (sl_id));
+Query OK, 0 rows affected (0.10 sec)
+
+mysql> alter table order_det add foreign key (cust_id) references customers (c_id), add foreign key (prod_id) references product (pt_id) ;
+Query OK, 0 rows affected (0.14 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc order_det;
++------------------+------+------+-----+---------+-------+
+| Field            | Type | Null | Key | Default | Extra |
++------------------+------+------+-----+---------+-------+
+| order_id         | int  | NO   | PRI | NULL    |       |
+| sl_id            | int  | YES  | MUL | NULL    |       |
+| cust_id          | int  | YES  | MUL | NULL    |       |
+| date_of_purchase | date | YES  |     | NULL    |       |
+| prod_id          | int  | YES  | MUL | NULL    |       |
++------------------+------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+mysql> insert into product values
+    -> (001,"Watch",1500.00),
+    -> (002,"Belt",700),
+    -> (003,"Rice",500),
+    -> (004,"Chocalates",450),
+    -> (005,"Biscuit",200);
+ERROR 1264 (22003): Out of range value for column 'pt_price' at row 1
+mysql> insert into product values
+    -> (1,"Oil",180.00),
+    -> (2,"Soap",125.75),
+    -> (3,"Rice",500),
+    -> (4,"Chocalates",450),
+    -> (5,"Biscuit",200);
+Query OK, 5 rows affected (0.03 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> alter table product add check(pt_price > 100);
+Query OK, 5 rows affected (0.63 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> insert into product values
+    -> (6,"Chips",70);
+ERROR 3819 (HY000): Check constraint 'product_chk_1' is violated.
+
+
+mysql> insert into customers
+    -> (701,"Victor","chennai",784528294272),
+    -> (702,"Aman","hyderabad",7841294292),
+    -> (703,"Oliver","hyderabad",7841294292),
+    -> (704,"Ajac","bangalore",8785035303),
+    -> (705,"Jia","Trichy",986835532);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '701,"Victor","chennai",784528294272),
+(702,"Aman","hyderabad",7841294292),
+(703,' at line 2
+mysql> insert into customers
+    -> (71,"Victor","chennai",784528294272),
+    -> (72,"Aman","hyderabad",7841294292),
+    -> (73,"Oliver","hyderabad",7841294292),
+    -> (74,"Ajac","bangalore",8785035303),
+    -> (75,"Jia","Trichy",986835532);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '71,"Victor","chennai",784528294272),
+(72,"Aman","hyderabad",7841294292),
+(73,"Ol' at line 2
+mysql> insert into customers values
+    -> (701,"Victor","chennai",784528294272),
+    -> (702,"Aman","hyderabad",7841294292),
+    -> (703,"Oliver","hyderabad",7841294292),
+    -> (704,"Ajac","bangalore",8785035303),
+    -> (705,"Jia","Trichy",986835532);
+ERROR 1062 (23000): Duplicate entry '7841294292' for key 'customers.c_phno'
+mysql> insert into customers values
+    -> (701,"Victor","chennai",784528294272),
+    -> (702,"Aman","hyderabad",7841294291),
+    -> (703,"Oliver","hyderabad",784129422),
+    -> (704,"Ajac","bangalore",8785035303),
+    -> (705,"Jia","Trichy",986835532);
+Query OK, 5 rows affected (0.03 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> insert into salesman values
+    -> (501,"dany",500),
+    -> (502,"diaz",400),
+    -> (503,"roman",450),
+    -> (504,"lian",450),
+    -> (505,"liya",550);
+Query OK, 5 rows affected (0.03 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> insert into order_det values
+    -> (201,505,702,'2023-08-01',2),
+    -> (202,505,701,'2023-08-11',4),
+    -> (203,501,704,'2023-09-11',5),
+    -> (204,503,703,'2023-09-13',1),
+    -> (205,503,703,'2023-11-15',3);
+Query OK, 5 rows affected (0.12 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> alter table products add column quantity int;
+ERROR 1146 (42S02): Table 'department_store.products' doesn't exist
+mysql> alter table product add column quantity int;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from product;
++-------+------------+----------+----------+
+| pt_id | pt_name    | pt_price | quantity |
++-------+------------+----------+----------+
+|     1 | Oil        |   180.00 |     NULL |
+|     2 | Soap       |   125.75 |     NULL |
+|     3 | Rice       |   500.00 |     NULL |
+|     4 | Chocalates |   450.00 |     NULL |
+|     5 | Biscuit    |   200.00 |     NULL |
++-------+------------+----------+----------+
+5 rows in set (0.03 sec)
+
+mysql> update product set quantity = 1 where pt_id = 1;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update product set quantity = 4 where pt_id = 2;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update product set quantity = 6 where pt_id = 3;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update product set quantity = 10 where pt_id = 4;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update product set quantity = 5 where pt_id = 5;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> alter table order_det rename column date_of_purchase to DOB;
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> update product set pt_price = pt_price+(pt_price * 0.15) where pt_id = 4;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from product;
++-------+------------+----------+----------+
+| pt_id | pt_name    | pt_price | quantity |
++-------+------------+----------+----------+
+|     1 | Oil        |   180.00 |        1 |
+|     2 | Soap       |   125.75 |        4 |
+|     3 | Rice       |   500.00 |        6 |
+|     4 | Chocalates |   517.50 |       10 |
+|     5 | Biscuit    |   200.00 |        5 |
++-------+------------+----------+----------+
+5 rows in set (0.00 sec)
+
+mysql> bye
+    -> ^C
+mysql> exit;
+ use department_store;
+Database changed
+mysql> show tables;
++----------------------------+
+| Tables_in_department_store |
++----------------------------+
+| customers                  |
+| order_det                  |
+| product                    |
+| salesman                   |
++----------------------------+
+4 rows in set (0.02 sec)
+
+mysql> desc order_det;
++----------+------+------+-----+---------+-------+
+| Field    | Type | Null | Key | Default | Extra |
++----------+------+------+-----+---------+-------+
+| order_id | int  | NO   | PRI | NULL    |       |
+| sl_id    | int  | YES  | MUL | NULL    |       |
+| cust_id  | int  | YES  | MUL | NULL    |       |
+| DOB      | date | YES  |     | NULL    |       |
+| prod_id  | int  | YES  | MUL | NULL    |       |
++----------+------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+mysql> alter table order_det drop foreign key sl_id;
+ERROR 1091 (42000): Can't DROP 'sl_id'; check that column/key exists
+mysql> alter table order_det drop column sl_id;
+ERROR 1828 (HY000): Cannot drop column 'sl_id': needed in a foreign key constraint 'order_det_ibfk_1'
+mysql> alter table order_det drop foreign key order_det_ibfk_1;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table order_det drop foreign key order_det_ibfk_2;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table order_det drop foreign key order_det_ibfk_3;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc order_det;
++----------+------+------+-----+---------+-------+
+| Field    | Type | Null | Key | Default | Extra |
++----------+------+------+-----+---------+-------+
+| order_id | int  | NO   | PRI | NULL    |       |
+| sl_id    | int  | YES  | MUL | NULL    |       |
+| cust_id  | int  | YES  | MUL | NULL    |       |
+| DOB      | date | YES  |     | NULL    |       |
+| prod_id  | int  | YES  | MUL | NULL    |       |
++----------+------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> alter table order_det add foreign key(sl_id) references salesman(sl_i
+d) on delete cascade;
+Query OK, 5 rows affected (0.05 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> alter table order_det add foreign key(cust_id) references customers(c_id) on delete cascade;
+Query OK, 5 rows affected (0.04 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> alter table order_det add foreign key(prod_id) references product(pt_id) on delete cascade;
+Query OK, 5 rows affected (0.04 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from order_det;
++----------+-------+---------+------------+---------+
+| order_id | sl_id | cust_id | DOB        | prod_id |
++----------+-------+---------+------------+---------+
+|      201 |   505 |     702 | 2023-08-01 |       2 |
+|      202 |   505 |     701 | 2023-08-11 |       4 |
+|      203 |   501 |     704 | 2023-09-11 |       5 |
+|      204 |   503 |     703 | 2023-09-13 |       1 |
+|      205 |   503 |     703 | 2023-11-15 |       3 |
++----------+-------+---------+------------+---------+
+5 rows in set (0.00 sec)
+
+mysql> select * from customers;
++------+--------+-----------+--------------+
+| c_id | c_name | cities    | c_phno       |
++------+--------+-----------+--------------+
+|  701 | Victor | chennai   | 784528294272 |
+|  702 | Aman   | hyderabad |   7841294291 |
+|  703 | Oliver | hyderabad |    784129422 |
+|  704 | Ajac   | bangalore |   8785035303 |
+|  705 | Jia    | Trichy    |    986835532 |
++------+--------+-----------+--------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from product;
++-------+------------+----------+----------+
+| pt_id | pt_name    | pt_price | quantity |
++-------+------------+----------+----------+
+|     1 | Oil        |   180.00 |        1 |
+|     2 | Soap       |   125.75 |        4 |
+|     3 | Rice       |   500.00 |        6 |
+|     4 | Chocalates |   517.50 |       10 |
+|     5 | Biscuit    |   200.00 |        5 |
++-------+------------+----------+----------+
+5 rows in set (0.00 sec)
+
+mysql> select * from salesman;
++-------+-------+--------+
+| sl_id | sname | salary |
++-------+-------+--------+
+|   501 | dany  |    500 |
+|   502 | diaz  |    400 |
+|   503 | roman |    450 |
+|   504 | lian  |    450 |
+|   505 | liya  |    550 |
++-------+-------+--------+
+5 rows in set (0.00 sec)
+
+mysql> delete from customers where c_name = "Oliver";
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from customers;
++------+--------+-----------+--------------+
+| c_id | c_name | cities    | c_phno       |
++------+--------+-----------+--------------+
+|  701 | Victor | chennai   | 784528294272 |
+|  702 | Aman   | hyderabad |   7841294291 |
+|  704 | Ajac   | bangalore |   8785035303 |
+|  705 | Jia    | Trichy    |    986835532 |
++------+--------+-----------+--------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from order_det;
++----------+-------+---------+------------+---------+
+| order_id | sl_id | cust_id | DOB        | prod_id |
++----------+-------+---------+------------+---------+
+|      201 |   505 |     702 | 2023-08-01 |       2 |
+|      202 |   505 |     701 | 2023-08-11 |       4 |
+|      203 |   501 |     704 | 2023-09-11 |       5 |
++----------+-------+---------+------------+---------+
+3 rows in set (0.00 sec)
+
+mysql> alter table cutomers modify column c_name varchar(50);
+ERROR 1146 (42S02): Table 'department_store.cutomers' doesn't exist
+mysql> alter table customers modify column c_name varchar(50);
+Query OK, 0 rows affected (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>

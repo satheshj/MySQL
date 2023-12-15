@@ -1,0 +1,7 @@
+1. select * from products where brand='Puma';
+2. select * from products where name like '%Jeans';
+3. select * from products where (name = 'Bourbon Small') or (name = 'Bourbon With Extra Cookies') or (name like 'Bourbon%');
+4. select * from products where name like '%Chips%';
+5. select * from products where name like '%h__r'
+6. select * from products where price <= 1000;
+7. select * from products where rating>4.0;

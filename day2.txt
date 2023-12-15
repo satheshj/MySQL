@@ -1,0 +1,16 @@
+mysql> 
+mysql> show databases;
+    -> 
+    -> ;
+    -> ^C
+mysql> show tables;
+    -> ^C
+mysql> tee off;
+mysql> show databases;
+    -> 
+    -> ^C
+mysql> show tables;
+    -> ^C
+mysql> exit;
+    -> ^C
+mysql> exit

@@ -1,0 +1,142 @@
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sathesh            |
+| sql_hr             |
+| sql_inventory      |
+| sql_invoicing      |
+| sql_store          |
+| student            |
+| sys                |
+| world              |
++--------------------+
+12 rows in set (0.00 sec)
+
+mysql> use sathesh;
+Database changed
+mysql> show tables;
++-------------------+
+| Tables_in_sathesh |
++-------------------+
+| pamily            |
++-------------------+
+1 row in set (0.00 sec)
+
+mysql> select * from pamily;
++----+------------+------------+-----+--------+
+| ID | First_name | last_name  | AGE | gender |
++----+------------+------------+-----+--------+
+|  1 | Vikey      | Bro        |  22 | Male   |
+| 16 | SATHESH    | Jaganathan |  21 | Male   |
+| 17 | JAGAN      | Gopal      |  45 | Male   |
+| 18 | Kalaivani  | Jaganathan |  40 | female |
++----+------------+------------+-----+--------+
+4 rows in set (0.04 sec)
+
+mysql> set autocommit = 0;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select First_name as name;
+ERROR 1054 (42S22): Unknown column 'First_name' in 'field list'
+mysql> select First_name as name from pamily;
++-----------+
+| name      |
++-----------+
+| Vikey     |
+| SATHESH   |
+| JAGAN     |
+| Kalaivani |
++-----------+
+4 rows in set (0.00 sec)
+
+mysql> delete from pamily where First_name = 'Vikey';
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from pamily;
++----+------------+------------+-----+--------+
+| ID | First_name | last_name  | AGE | gender |
++----+------------+------------+-----+--------+
+| 16 | SATHESH    | Jaganathan |  21 | Male   |
+| 17 | JAGAN      | Gopal      |  45 | Male   |
+| 18 | Kalaivani  | Jaganathan |  40 | female |
++----+------------+------------+-----+--------+
+3 rows in set (0.00 sec)
+
+mysql> rollback;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from pamily;
++----+------------+------------+-----+--------+
+| ID | First_name | last_name  | AGE | gender |
++----+------------+------------+-----+--------+
+|  1 | Vikey      | Bro        |  22 | Male   |
+| 16 | SATHESH    | Jaganathan |  21 | Male   |
+| 17 | JAGAN      | Gopal      |  45 | Male   |
+| 18 | Kalaivani  | Jaganathan |  40 | female |
++----+------------+------------+-----+--------+
+4 rows in set (0.00 sec)
+
+mysql> alter table pamily rename First_name to Name;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'to Name' at line 1
+mysql> alter table pamily rename First_name to Name;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'to Name' at line 1
+mysql> alter table pamily rename column First_name to Name;
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from pamily;
++----+-----------+------------+-----+--------+
+| ID | Name      | last_name  | AGE | gender |
++----+-----------+------------+-----+--------+
+|  1 | Vikey     | Bro        |  22 | Male   |
+| 16 | SATHESH   | Jaganathan |  21 | Male   |
+| 17 | JAGAN     | Gopal      |  45 | Male   |
+| 18 | Kalaivani | Jaganathan |  40 | female |
++----+-----------+------------+-----+--------+
+4 rows in set (0.00 sec)
+
+mysql> rollback;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from pamily;
++----+-----------+------------+-----+--------+
+| ID | Name      | last_name  | AGE | gender |
++----+-----------+------------+-----+--------+
+|  1 | Vikey     | Bro        |  22 | Male   |
+| 16 | SATHESH   | Jaganathan |  21 | Male   |
+| 17 | JAGAN     | Gopal      |  45 | Male   |
+| 18 | Kalaivani | Jaganathan |  40 | female |
++----+-----------+------------+-----+--------+
+4 rows in set (0.00 sec)
+
+mysql> commit;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> rollback;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from pamily;
++----+-----------+------------+-----+--------+
+| ID | Name      | last_name  | AGE | gender |
++----+-----------+------------+-----+--------+
+|  1 | Vikey     | Bro        |  22 | Male   |
+| 16 | SATHESH   | Jaganathan |  21 | Male   |
+| 17 | JAGAN     | Gopal      |  45 | Male   |
+| 18 | Kalaivani | Jaganathan |  40 | female |
++----+-----------+------------+-----+--------+
+4 rows in set (0.00 sec)
+
+mysql> create user SA16;
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> grant create,update,insert,select on sathesh to SA16;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> show users;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'users' at line 1
+mysql> quit;

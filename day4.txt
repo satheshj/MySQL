@@ -1,0 +1,476 @@
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sathesh            |
+| sql_hr             |
+| sql_inventory      |
+| sql_invoicing      |
+| sql_store          |
+| student            |
+| sys                |
+| world              |
++--------------------+
+12 rows in set (0.02 sec)
+
+mysql> use sathesh;
+Database changed
+mysql> show tables;
++-------------------+
+| Tables_in_sathesh |
++-------------------+
+| customer          |
+| dept              |
+| emp               |
+| order_details     |
+| pamily            |
+| player            |
+| student           |
++-------------------+
+7 rows in set (0.01 sec)
+
+mysql> select * from emp;
++-------+--------+-----------+------+------------+---------+---------+--------+
+| empno | ename  | job       | mgr  | hiredate   | sal     | comm    | deptno |
++-------+--------+-----------+------+------------+---------+---------+--------+
+|  7369 | SMITH  | CLERK     | 7902 | 1980-12-17 |  800.00 |    NULL |     20 |
+|  7499 | ALLEN  | SALESMAN  | 7698 | 1981-02-20 | 1600.00 |  300.00 |     30 |
+|  7521 | WARD   | SALESMAN  | 7698 | 1981-02-22 | 1250.00 |  500.00 |     30 |
+|  7566 | JONES  | MANAGER   | 7839 | 1981-04-02 | 2975.00 |    NULL |     20 |
+|  7654 | MARTIN | SALESMAN  | 7698 | 1981-09-28 | 1250.00 | 1400.00 |     30 |
+|  7698 | BLAKE  | MANAGER   | 7839 | 1981-05-01 | 2850.00 |    NULL |     30 |
+|  7782 | CLARK  | MANAGER   | 7839 | 1981-06-09 | 2450.00 |    NULL |     10 |
+|  7788 | SCOTT  | ANALYST   | 7566 | 1982-12-09 | 3000.00 |    NULL |     20 |
+|  7839 | KING   | PRESIDENT | NULL | 1981-11-17 | 5000.00 |    NULL |     10 |
+|  7844 | TURNER | SALESMAN  | 7698 | 1981-09-08 | 1500.00 |    0.00 |     30 |
+|  7876 | ADAMS  | CLERK     | 7788 | 1983-01-12 | 1100.00 |    NULL |     20 |
+|  7900 | JAMES  | CLERK     | 7698 | 1981-12-03 |  950.00 |    NULL |     30 |
+|  7902 | FORD   | ANALYST   | 7566 | 1981-12-03 | 3000.00 |    NULL |     20 |
+|  7934 | MILLER | CLERK     | 7782 | 1982-01-23 | 1300.00 |    NULL |     10 |
++-------+--------+-----------+------+------------+---------+---------+--------+
+14 rows in set (0.00 sec)
+
+mysql> select lower(ename) from emp;
++--------------+
+| lower(ename) |
++--------------+
+| smith        |
+| allen        |
+| ward         |
+| jones        |
+| martin       |
+| blake        |
+| clark        |
+| scott        |
+| king         |
+| turner       |
+| adams        |
+| james        |
+| ford         |
+| miller       |
++--------------+
+14 rows in set (0.00 sec)
+
+mysql> show tables;
++-------------------+
+| Tables_in_sathesh |
++-------------------+
+| customer          |
+| dept              |
+| emp               |
+| order_details     |
+| pamily            |
+| player            |
+| student           |
++-------------------+
+7 rows in set (0.00 sec)
+
+mysql> desc customer;
++---------------+--------------+------+-----+---------+-------+
+| Field         | Type         | Null | Key | Default | Extra |
++---------------+--------------+------+-----+---------+-------+
+| customer_id   | int          | YES  |     | NULL    |       |
+| first_name    | varchar(200) | YES  |     | NULL    |       |
+| last_name     | varchar(200) | YES  |     | NULL    |       |
+| date_of_birth | date         | YES  |     | NULL    |       |
+| address       | text         | YES  |     | NULL    |       |
+| phone_number  | int          | YES  |     | NULL    |       |
++---------------+--------------+------+-----+---------+-------+
+6 rows in set (0.02 sec)
+
+mysql> desc order_details;
++------------------+----------+------+-----+---------+-------+
+| Field            | Type     | Null | Key | Default | Extra |
++------------------+----------+------+-----+---------+-------+
+| order_id         | int      | YES  |     | NULL    |       |
+| customer_id      | int      | YES  |     | NULL    |       |
+| order_datetime   | datetime | YES  |     | NULL    |       |
+| shipped_datetime | datetime | YES  |     | NULL    |       |
+| total_amount     | float    | YES  |     | NULL    |       |
++------------------+----------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select ename,job,concat(deptno,empno) from emp;
++--------+-----------+----------------------+
+| ename  | job       | concat(deptno,empno) |
++--------+-----------+----------------------+
+| SMITH  | CLERK     | 207369               |
+| ALLEN  | SALESMAN  | 307499               |
+| WARD   | SALESMAN  | 307521               |
+| JONES  | MANAGER   | 207566               |
+| MARTIN | SALESMAN  | 307654               |
+| BLAKE  | MANAGER   | 307698               |
+| CLARK  | MANAGER   | 107782               |
+| SCOTT  | ANALYST   | 207788               |
+| KING   | PRESIDENT | 107839               |
+| TURNER | SALESMAN  | 307844               |
+| ADAMS  | CLERK     | 207876               |
+| JAMES  | CLERK     | 307900               |
+| FORD   | ANALYST   | 207902               |
+| MILLER | CLERK     | 107934               |
++--------+-----------+----------------------+
+14 rows in set (0.00 sec)
+
+mysql> select ename,job,concat(deptno,empno) from emp order by deptno;
++--------+-----------+----------------------+
+| ename  | job       | concat(deptno,empno) |
++--------+-----------+----------------------+
+| CLARK  | MANAGER   | 107782               |
+| KING   | PRESIDENT | 107839               |
+| MILLER | CLERK     | 107934               |
+| SMITH  | CLERK     | 207369               |
+| JONES  | MANAGER   | 207566               |
+| SCOTT  | ANALYST   | 207788               |
+| ADAMS  | CLERK     | 207876               |
+| FORD   | ANALYST   | 207902               |
+| ALLEN  | SALESMAN  | 307499               |
+| WARD   | SALESMAN  | 307521               |
+| MARTIN | SALESMAN  | 307654               |
+| BLAKE  | MANAGER   | 307698               |
+| TURNER | SALESMAN  | 307844               |
+| JAMES  | CLERK     | 307900               |
++--------+-----------+----------------------+
+14 rows in set (0.00 sec)
+
+mysql> select ename,job,concat(deptno," department and employee number ",empno) from emp order by deptno;
++--------+-----------+---------------------------------------------------------+
+| ename  | job       | concat(deptno," department and employee number ",empno) |
++--------+-----------+---------------------------------------------------------+
+| CLARK  | MANAGER   | 10 department and employee number 7782                  |
+| KING   | PRESIDENT | 10 department and employee number 7839                  |
+| MILLER | CLERK     | 10 department and employee number 7934                  |
+| SMITH  | CLERK     | 20 department and employee number 7369                  |
+| JONES  | MANAGER   | 20 department and employee number 7566                  |
+| SCOTT  | ANALYST   | 20 department and employee number 7788                  |
+| ADAMS  | CLERK     | 20 department and employee number 7876                  |
+| FORD   | ANALYST   | 20 department and employee number 7902                  |
+| ALLEN  | SALESMAN  | 30 department and employee number 7499                  |
+| WARD   | SALESMAN  | 30 department and employee number 7521                  |
+| MARTIN | SALESMAN  | 30 department and employee number 7654                  |
+| BLAKE  | MANAGER   | 30 department and employee number 7698                  |
+| TURNER | SALESMAN  | 30 department and employee number 7844                  |
+| JAMES  | CLERK     | 30 department and employee number 7900                  |
++--------+-----------+---------------------------------------------------------+
+14 rows in set (0.00 sec)
+
+mysql> select length(ename) as "Length of name" from emp;
++----------------+
+| Length of name |
++----------------+
+|              5 |
+|              5 |
+|              4 |
+|              5 |
+|              6 |
+|              5 |
+|              5 |
+|              5 |
+|              4 |
+|              6 |
+|              5 |
+|              5 |
+|              4 |
+|              6 |
++----------------+
+14 rows in set (0.00 sec)
+
+mysql> select substr(ename,0,3) from emp;
++-------------------+
+| substr(ename,0,3) |
++-------------------+
+|                   |
+|                   |
+|                   |
+|                   |
+|                   |
+|                   |
+|                   |
+|                   |
+|                   |
+|                   |
+|                   |
+|                   |
+|                   |
+|                   |
++-------------------+
+14 rows in set (0.00 sec)
+
+mysql> select substr(ename,1,3) from emp;
++-------------------+
+| substr(ename,1,3) |
++-------------------+
+| SMI               |
+| ALL               |
+| WAR               |
+| JON               |
+| MAR               |
+| BLA               |
+| CLA               |
+| SCO               |
+| KIN               |
+| TUR               |
+| ADA               |
+| JAM               |
+| FOR               |
+| MIL               |
++-------------------+
+14 rows in set (0.00 sec)
+
+mysql> select concat(substr(ename,1,1),lower(substr(ename,2))) as CamelCase from emp;
++-----------+
+| CamelCase |
++-----------+
+| Smith     |
+| Allen     |
+| Ward      |
+| Jones     |
+| Martin    |
+| Blake     |
+| Clark     |
+| Scott     |
+| King      |
+| Turner    |
+| Adams     |
+| James     |
+| Ford      |
+| Miller    |
++-----------+
+14 rows in set (0.00 sec)
+
+mysql> select ename,substring(ename,-4) from emp;
++--------+---------------------+
+| ename  | substring(ename,-4) |
++--------+---------------------+
+| SMITH  | MITH                |
+| ALLEN  | LLEN                |
+| WARD   | WARD                |
+| JONES  | ONES                |
+| MARTIN | RTIN                |
+| BLAKE  | LAKE                |
+| CLARK  | LARK                |
+| SCOTT  | COTT                |
+| KING   | KING                |
+| TURNER | RNER                |
+| ADAMS  | DAMS                |
+| JAMES  | AMES                |
+| FORD   | FORD                |
+| MILLER | LLER                |
++--------+---------------------+
+14 rows in set (0.03 sec)
+
+mysql> select ename,lpad(ename,8,'*') from emp;
++--------+-------------------+
+| ename  | lpad(ename,8,'*') |
++--------+-------------------+
+| SMITH  | ***SMITH          |
+| ALLEN  | ***ALLEN          |
+| WARD   | ****WARD          |
+| JONES  | ***JONES          |
+| MARTIN | **MARTIN          |
+| BLAKE  | ***BLAKE          |
+| CLARK  | ***CLARK          |
+| SCOTT  | ***SCOTT          |
+| KING   | ****KING          |
+| TURNER | **TURNER          |
+| ADAMS  | ***ADAMS          |
+| JAMES  | ***JAMES          |
+| FORD   | ****FORD          |
+| MILLER | **MILLER          |
++--------+-------------------+
+14 rows in set (0.03 sec)
+
+mysql> select ename,rpad(ename,8,'*') from emp;
++--------+-------------------+
+| ename  | rpad(ename,8,'*') |
++--------+-------------------+
+| SMITH  | SMITH***          |
+| ALLEN  | ALLEN***          |
+| WARD   | WARD****          |
+| JONES  | JONES***          |
+| MARTIN | MARTIN**          |
+| BLAKE  | BLAKE***          |
+| CLARK  | CLARK***          |
+| SCOTT  | SCOTT***          |
+| KING   | KING****          |
+| TURNER | TURNER**          |
+| ADAMS  | ADAMS***          |
+| JAMES  | JAMES***          |
+| FORD   | FORD****          |
+| MILLER | MILLER**          |
++--------+-------------------+
+14 rows in set (0.03 sec)
+
+mysql> select ename,replace(ename,'i','aaa') as replaced from emp;
++--------+----------+
+| ename  | replaced |
++--------+----------+
+| SMITH  | SMITH    |
+| ALLEN  | ALLEN    |
+| WARD   | WARD     |
+| JONES  | JONES    |
+| MARTIN | MARTIN   |
+| BLAKE  | BLAKE    |
+| CLARK  | CLARK    |
+| SCOTT  | SCOTT    |
+| KING   | KING     |
+| TURNER | TURNER   |
+| ADAMS  | ADAMS    |
+| JAMES  | JAMES    |
+| FORD   | FORD     |
+| MILLER | MILLER   |
++--------+----------+
+14 rows in set (0.03 sec)
+
+mysql> select ename,replace(ename,'I','aaa') as replaced from emp;
++--------+----------+
+| ename  | replaced |
++--------+----------+
+| SMITH  | SMaaaTH  |
+| ALLEN  | ALLEN    |
+| WARD   | WARD     |
+| JONES  | JONES    |
+| MARTIN | MARTaaaN |
+| BLAKE  | BLAKE    |
+| CLARK  | CLARK    |
+| SCOTT  | SCOTT    |
+| KING   | KaaaNG   |
+| TURNER | TURNER   |
+| ADAMS  | ADAMS    |
+| JAMES  | JAMES    |
+| FORD   | FORD     |
+| MILLER | MaaaLLER |
++--------+----------+
+14 rows in set (0.00 sec)
+
+mysql> select trim('     jenin   ');
++-----------------------+
+| trim('     jenin   ') |
++-----------------------+
+| jenin                 |
++-----------------------+
+1 row in set (0.03 sec)
+
+mysql> select trim('     jenin   '),length(trim('     jenin   '));
++-----------------------+-------------------------------+
+| trim('     jenin   ') | length(trim('     jenin   ')) |
++-----------------------+-------------------------------+
+| jenin                 |                             5 |
++-----------------------+-------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select rtrim('     jenin   '),length(trim('     jenin   '));
++------------------------+-------------------------------+
+| rtrim('     jenin   ') | length(trim('     jenin   ')) |
++------------------------+-------------------------------+
+|      jenin             |                             5 |
++------------------------+-------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select ltrim('     jenin   '),length(trim('     jenin   '));
++------------------------+-------------------------------+
+| ltrim('     jenin   ') | length(trim('     jenin   ')) |
++------------------------+-------------------------------+
+| jenin                  |                             5 |
++------------------------+-------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select ename,repeat(ename,2) from emp;
++--------+-----------------+
+| ename  | repeat(ename,2) |
++--------+-----------------+
+| SMITH  | SMITHSMITH      |
+| ALLEN  | ALLENALLEN      |
+| WARD   | WARDWARD        |
+| JONES  | JONESJONES      |
+| MARTIN | MARTINMARTIN    |
+| BLAKE  | BLAKEBLAKE      |
+| CLARK  | CLARKCLARK      |
+| SCOTT  | SCOTTSCOTT      |
+| KING   | KINGKING        |
+| TURNER | TURNERTURNER    |
+| ADAMS  | ADAMSADAMS      |
+| JAMES  | JAMESJAMES      |
+| FORD   | FORDFORD        |
+| MILLER | MILLERMILLER    |
++--------+-----------------+
+14 rows in set (0.00 sec)
+
+mysql> select instr('sathesh','esh');
++------------------------+
+| instr('sathesh','esh') |
++------------------------+
+|                      5 |
++------------------------+
+1 row in set (0.01 sec)
+
+mysql> create table(
+    -> name varchar(20),
+    -> ^C
+mysql> create table product(
+    -> name varchar(20));
+Query OK, 0 rows affected (0.10 sec)
+
+mysql> insert into product values("Black colour Shirt"),("Red shirt"),("Blue Shirt");
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from products where name like '%Shirt%' and not like '%Black%';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'like '%Black%'' at line 1
+mysql> select * from products where name like '%Shirt%';
+ERROR 1146 (42S02): Table 'sathesh.products' doesn't exist
+mysql> select * from product where name like '%Shirt%';
++--------------------+
+| name               |
++--------------------+
+| Black colour Shirt |
+| Red shirt          |
+| Blue Shirt         |
++--------------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from product where name like '%Shirt%' and not like '%Black%';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'like '%Black%'' at line 1
+mysql> select * from product where name like '%Shirt%' and like '%Black%';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'like '%Black%'' at line 1
+mysql> select * from product where name like '%Shirt%' and name like '%Black%';
++--------------------+
+| name               |
++--------------------+
+| Black colour Shirt |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> select * from product where name like '%Shirt%' and name not like '%Black%';
++------------+
+| name       |
++------------+
+| Red shirt  |
+| Blue Shirt |
++------------+
+2 rows in set (0.03 sec)
+
+mysql> quit;
